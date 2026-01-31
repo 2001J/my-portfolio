@@ -274,13 +274,7 @@
                 </svg>
                 Download My Resume
             </a>
-            <a href="mailto:josejeth26@gmail.com" class="resume-btn secondary">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                    <polyline points="22,6 12,13 2,6"/>
-                </svg>
-                Get In Touch
-            </a>
+
         </div>
 
         <h3 class="connect-title">Let's Connect!</h3>
@@ -305,28 +299,26 @@
     </div>
 
     <script>
-        // Animated progress percentage
+        // Animated progress percentage - smooth and slow
         const percentEl = document.getElementById('percent');
         const progressFill = document.getElementById('progressFill');
-        let progress = 0;
+        let progress = 20;
         let direction = 1;
         
         function animateProgress() {
-            progress += direction * 0.5;
+            progress += direction * 0.08;
             
             if (progress >= 65) direction = -1;
             if (progress <= 20) direction = 1;
             
-            percentEl.textContent = Math.round(progress) + '%';
+            // Smooth number display with one decimal
+            percentEl.textContent = progress.toFixed(0) + '%';
             progressFill.style.width = progress + '%';
-            
-            requestAnimationFrame(animateProgress);
         }
         
-        // Start with slight delay
+        // Use setInterval for consistent smooth animation
         setTimeout(() => {
-            progress = 20;
-            animateProgress();
+            setInterval(animateProgress, 50);
         }, 500);
     </script>
 </body>
