@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joseph Jethan | Portfolio</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='10' y='20' width='80' height='60' rx='5' fill='%233b82f6'/><rect x='20' y='10' width='25' height='15' rx='3' fill='%2306b6d4'/><line x1='25' y1='40' x2='75' y2='40' stroke='white' stroke-width='4'/><line x1='25' y1='55' x2='60' y2='55' stroke='white' stroke-width='4'/><line x1='25' y1='70' x2='50' y2='70' stroke='white' stroke-width='4'/></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -112,21 +113,36 @@
 
         .progress-fill {
             height: 100%;
-            width: 35%;
+            width: 0%;
             background: linear-gradient(90deg, #3b82f6, #06b6d4);
             border-radius: 10px;
-            animation: pulse 2s ease-in-out infinite;
+            animation: loading 3s ease-in-out infinite;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
+        @keyframes loading {
+            0% { width: 0%; }
+            50% { width: 65%; }
+            100% { width: 35%; }
         }
 
         .progress-status {
             font-size: 0.85rem;
             color: #9ca3af;
             margin-top: 8px;
+            animation: statusPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
         .resume-btn {
@@ -141,12 +157,22 @@
             font-weight: 600;
             font-size: 1rem;
             transition: transform 0.3s, box-shadow 0.3s;
-            margin-bottom: 40px;
         }
 
         .resume-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+
+        .resume-btn.secondary {
+            background: white;
+            color: #3b82f6;
+            border: 2px solid #3b82f6;
+        }
+
+        .resume-btn.secondary:hover {
+            background: #f0f4ff;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.15);
         }
 
         .connect-title {
@@ -225,27 +251,37 @@
         
         <p class="description">
             I'm crafting something amazing that showcases my work and passion. In the meantime, 
-            feel free to connect with me below or check out my GitHub to see what I'm building!
+            feel free to connect with me below or grab my resume to learn more about what I do!
         </p>
 
         <div class="progress-container">
             <div class="progress-header">
                 <span class="progress-label">Building Progress</span>
-                <span class="progress-percent">35%</span>
+                <span class="progress-percent" id="percent">0%</span>
             </div>
             <div class="progress-bar">
-                <div class="progress-fill"></div>
+                <div class="progress-fill" id="progressFill"></div>
             </div>
             <p class="progress-status">Crafting something amazing...</p>
         </div>
 
-        <a href="mailto:josejeth26@gmail.com" class="resume-btn">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            Get In Touch
-        </a>
+        <div class="btn-group">
+            <a href="resume.pdf" download class="resume-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+                Download My Resume
+            </a>
+            <a href="mailto:josejeth26@gmail.com" class="resume-btn secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                </svg>
+                Get In Touch
+            </a>
+        </div>
 
         <h3 class="connect-title">Let's Connect!</h3>
         
@@ -267,5 +303,31 @@
             </a>
         </div>
     </div>
+
+    <script>
+        // Animated progress percentage
+        const percentEl = document.getElementById('percent');
+        const progressFill = document.getElementById('progressFill');
+        let progress = 0;
+        let direction = 1;
+        
+        function animateProgress() {
+            progress += direction * 0.5;
+            
+            if (progress >= 65) direction = -1;
+            if (progress <= 20) direction = 1;
+            
+            percentEl.textContent = Math.round(progress) + '%';
+            progressFill.style.width = progress + '%';
+            
+            requestAnimationFrame(animateProgress);
+        }
+        
+        // Start with slight delay
+        setTimeout(() => {
+            progress = 20;
+            animateProgress();
+        }, 500);
+    </script>
 </body>
 </html>
