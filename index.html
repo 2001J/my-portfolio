@@ -299,26 +299,26 @@
     </div>
 
     <script>
-        // Animated progress percentage - smooth and slow
+        // Animated progress percentage - synced with bar
         const percentEl = document.getElementById('percent');
         const progressFill = document.getElementById('progressFill');
         let progress = 20;
         let direction = 1;
         
         function animateProgress() {
-            progress += direction * 0.08;
+            progress += direction * 0.3;
             
-            if (progress >= 65) direction = -1;
+            if (progress >= 78) direction = -1;
             if (progress <= 20) direction = 1;
             
-            // Smooth number display with one decimal
-            percentEl.textContent = progress.toFixed(0) + '%';
-            progressFill.style.width = progress + '%';
+            const displayProgress = Math.round(progress);
+            percentEl.textContent = displayProgress + '%';
+            progressFill.style.width = displayProgress + '%';
         }
         
-        // Use setInterval for consistent smooth animation
+        // Smooth 60fps animation
         setTimeout(() => {
-            setInterval(animateProgress, 50);
+            setInterval(animateProgress, 16);
         }, 500);
     </script>
 </body>
