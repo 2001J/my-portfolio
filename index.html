@@ -13,16 +13,21 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            min-height: 100vh;
+            min-height: 100dvh;
             background: linear-gradient(135deg, #f0f4ff 0%, #e8f4f8 50%, #f0f4ff 100%);
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 20px 20px 40px;
             position: relative;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
         }
 
         /* Floating decorations */
@@ -46,6 +51,8 @@
         .container {
             text-align: center;
             max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
             z-index: 1;
         }
 
@@ -219,6 +226,39 @@
             width: 24px;
             height: 24px;
             fill: white;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 20px 16px 40px;
+                align-items: flex-start;
+            }
+
+            .container {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 2.4rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .description {
+                font-size: 0.95rem;
+            }
+
+            .btn-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .resume-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
